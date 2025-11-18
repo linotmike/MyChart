@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mychart_db
+    username: mychart_user
+    password: mychart2025@password
+    driver-class-name: org.postgresql.Driver
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 2s
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # creates/updates tables automatically during dev
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  liquibase:
+    enabled: false   # optional if not using yet
+
+server:
+  port: 8080

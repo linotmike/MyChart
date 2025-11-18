@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-host:5432/mychart_db
+    username: ${MYCHART_DB_USER}
+    password: ${MYCHART_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+  liquibase:
+    enabled: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN

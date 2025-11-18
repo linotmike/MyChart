@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: mychart
+
+  profiles:
+    active: local   # default profile; override with SPRING_PROFILES_ACTIVE
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
