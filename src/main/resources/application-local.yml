@@ -13,14 +13,15 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update   # creates/updates tables automatically during dev
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
 
   liquibase:
-    enabled: false   # optional if not using yet
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-dev.yaml
 
 server:
   port: 8080
