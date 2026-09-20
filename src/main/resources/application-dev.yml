@@ -1,18 +1,25 @@
 spring:
   datasource:
-    url: jdbc:postgresql://dev-db-host:5432/mychart_db
-    username: mychart_user
-    password: ${MYCHART_DB_PASSWORD}   # from environment variable
-    driver-class-name: org.postgresql.Driver
+    url: ${MYCHART_DB_URL}
+    username: ${MYCHART_DB_USERNAME}
+    password: ${MYCHART_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate   # no auto-creation, validated against migrations
+      ddl-auto: validate
+    open-in-view: false
     show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
 
   liquibase:
     enabled: true
-    change-log: classpath:/db/changelog/db.changelog-dev.yaml
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
 
-server:
-  port: 8081
+logging:
+  level:
+    root: INFO
+    com.MyChart: INFO
