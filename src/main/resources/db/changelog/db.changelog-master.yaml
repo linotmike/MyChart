@@ -1,1 +1,169 @@
 databaseChangeLog:
+  - changeSet:
+      id: 0001-create-phase1-foundation
+      author: mychart
+      changes:
+        - createTable:
+            tableName: organizations
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: organization_type
+                  type: varchar(50)
+              - column:
+                  name: license_number
+                  type: varchar(100)
+              - column:
+                  name: phone
+                  type: varchar(30)
+              - column:
+                  name: email
+                  type: varchar(150)
+              - column:
+                  name: address
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(30)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: facilities
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: organization_id
+                  type: char(36)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: facility_type
+                  type: varchar(50)
+              - column:
+                  name: city
+                  type: varchar(100)
+              - column:
+                  name: phone
+                  type: varchar(30)
+              - column:
+                  name: timezone
+                  type: varchar(80)
+                  defaultValue: Africa/Addis_Ababa
+              - column:
+                  name: status
+                  type: varchar(30)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: facilities
+            baseColumnNames: organization_id
+            referencedTableName: organizations
+            referencedColumnNames: id
+            constraintName: fk_facilities_organization
+        - createTable:
+            tableName: audit_logs
+            columns:
+              - column:
+                  name: id
+                  type: char(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: organization_id
+                  type: char(36)
+              - column:
+                  name: facility_id
+                  type: char(36)
+              - column:
+                  name: user_id
+                  type: char(36)
+              - column:
+                  name: action
+                  type: varchar(120)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_type
+                  type: varchar(120)
+              - column:
+                  name: entity_id
+                  type: char(36)
+              - column:
+                  name: old_value
+                  type: text
+              - column:
+                  name: new_value
+                  type: text
+              - column:
+                  name: ip_address
+                  type: varchar(80)
+              - column:
+                  name: device_information
+                  type: varchar(255)
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: facilities
+            indexName: idx_facilities_organization_id
+            columns:
+              - column:
+                  name: organization_id
+        - createIndex:
+            tableName: audit_logs
+            indexName: idx_audit_logs_org_created_at
+            columns:
+              - column:
+                  name: organization_id
+              - column:
+                  name: created_at
